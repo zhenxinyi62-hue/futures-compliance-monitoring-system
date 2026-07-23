@@ -23,7 +23,7 @@ def crawl_shfe():
         response.text,
         "html.parser"
     )
-
+    print(response.text[:500])
 
     announcements = []
 
