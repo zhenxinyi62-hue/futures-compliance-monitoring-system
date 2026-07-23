@@ -6,124 +6,58 @@ import os
 from datetime import datetime
 
 
-# ===============================
-# 中国期货业协会纪律处分栏目
-# ===============================
-
-URL = (
-    "https://www.cfachina.org/"
-    "informationpublicity/discipline/"
-)
+URL = "https://www.cfachina.org/informationpublicity/discipline/"
 
 
 HEADERS = {
-
-    "User-Agent":
+    "User-Agent": 
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-
 }
 
 
+BASE_URL = "https://www.cfachina.org"
 
-# ===============================
-# URL处理
-# ===============================
+
 
 def fix_url(url):
 
     if not url:
         return ""
 
-    if url.startswith("./"):
-
-        return (
-            "https://www.cfachina.org/"
-            + url[2:]
-        )
-
-
-    if url.startswith("/"):
-
-        return (
-            "https://www.cfachina.org"
-            + url
-        )
-
-
     if url.startswith("http"):
-
         return url
 
+    if url.startswith("./"):
+        return BASE_URL + "/" + url[2:]
 
-    return (
-        "https://www.cfachina.org/"
-        + url
-    )
+    if url.startswith("/"):
+        return BASE_URL + url
+
+    return BASE_URL + "/" + url
 
 
-
-
-
-# ===============================
-# 提取机构名称
-# ===============================
 
 def extract_company(title):
 
-
     patterns = [
 
-        # 关于对XX期货有限公司...
-        r"关于对(.*?期货(?:有限公司|股份有限公司|公司))",
-
-        # XX期货有限公司关于
-        r"^(.*?期货(?:有限公司|股份有限公司|公司))",
-
-        # 对XX期货有限公司
-        r"对(.*?期货(?:有限公司|股份有限公司|公司))",
+        r"关于对(.*?期货有限公司)",
+        r"(.*?期货有限公司)",
+        r"对(.*?期货公司)"
 
     ]
 
 
     for p in patterns:
 
-
         result = re.search(
             p,
             title
         )
 
-
         if result:
 
-            return (
-                result.group(1)
-                .strip()
-            )
-
-
-
-    # 找不到公司时识别人名
-
-    name_pattern = (
-        r"关于对(.*?)作出"
-    )
-
-
-    result = re.search(
-        name_pattern,
-        title
-    )
-
-
-    if result:
-
-        return (
-            result.group(1)
-            .strip()
-            +
-            "（个人）"
-        )
+            return result.group(1)
 
 
 
@@ -132,36 +66,20 @@ def extract_company(title):
 
 
 
-
-
-
-# ===============================
-# 抓取公告
-# ===============================
-
 def crawl_cfa():
 
 
     print("===================")
-
-    print(
-        "开始抓取中国期货业协会"
-    )
-
+    print("开始访问中期协")
     print("===================")
 
 
 
     response = requests.get(
-
         URL,
-
         headers=HEADERS,
-
         timeout=30
-
     )
-
 
 
     print(
@@ -170,109 +88,125 @@ def crawl_cfa():
     )
 
 
-
     response.encoding = "utf-8"
+
+
+    html = response.text
+
+
+    print(
+        "网页长度:",
+        len(html)
+    )
+
+
+
+    # 保存网页
+    with open(
+        "cfa_debug.html",
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(html)
+
+
+
+    print("===================")
+    print("网页前500字符")
+    print("===================")
+
+    print(
+        html[:500]
+    )
 
 
 
     soup = BeautifulSoup(
-
-        response.text,
-
+        html,
         "html.parser"
-
     )
 
-    
-    print(response.text[:1000]
-    print("==================="))
+
+
+    links = soup.find_all("a")
+
+
+
     print("===================")
+    print(
+        "链接数量:",
+        len(links)
+    )
+    print("===================")
+
+
 
     data = []
 
-
-
-    seen = set()
+    seen=set()
 
 
 
-    # 只处理列表区域链接
-
-    for a in soup.find_all("a"):
+    for a in links:
 
 
-        title = (
-            a.text
-            .strip()
-        )
+        title = a.text.strip()
 
-
-        href = a.get(
-            "href"
-        )
+        href = a.get("href")
 
 
 
         if not title or not href:
-
             continue
 
 
 
-        # 排除菜单
-
-        if title in [
-
-            "纪律处分",
-
-            "首页",
-
-            "更多",
-
-            "返回"
-
-        ]:
-
-            continue
+        url = fix_url(href)
 
 
 
-        # 只保留真正公告
+        # 打印可能公告
 
         if (
-            "关于对" not in title
-            and
-            "纪律处分" not in title
-            and
-            "处分" not in title
+            "纪律" in title
+            or
+            "处分" in title
+            or
+            "决定" in title
         ):
 
-            continue
-
-
-
-        # 排除栏目自身
-
-        if (
-            href.endswith(
-                "discipline/"
+            print(
+                "发现:",
+                title
             )
+
+            print(
+                url
+            )
+
+
+        # 排除栏目
+
+        if href.endswith(
+            "discipline/"
         ):
 
             continue
 
 
 
-        url = fix_url(
-            href
-        )
+        # 只保存详情页
+
+        if (
+            "discipline/" not in url
+        ):
+
+            continue
 
 
-
-        # 去重
 
         if url in seen:
-
             continue
 
 
@@ -280,80 +214,56 @@ def crawl_cfa():
 
 
 
-        company = extract_company(
-            title
-        )
-
-
-
         item = {
 
-
             "exchange":
-
                 "中期协",
 
-
             "source":
-
                 "中国期货业协会",
 
-
             "company":
-
-                company,
-
+                extract_company(title),
 
             "person":
-
                 "",
 
-
             "title":
-
                 title,
-
 
             "type":
-
                 "纪律处分",
 
-
             "violation":
-
                 title,
 
-
             "penalty":
-
                 "详见中国期货业协会公告",
 
-
             "date":
-
                 datetime.now()
                 .strftime(
                     "%Y-%m-%d"
                 ),
 
-
             "url":
-
                 url
 
         }
 
 
-        data.append(
-            item
-        )
+        data.append(item)
 
 
+
+    print("===================")
 
     print(
-        "抓取数量:",
+        "抓取公告数量:",
         len(data)
     )
+
+    print("===================")
 
 
 
@@ -362,73 +272,37 @@ def crawl_cfa():
 
 
 
-
-
-
-# ===============================
-# 保存数据
-# ===============================
-
 def save_data(data):
 
 
     os.makedirs(
-
         "data",
-
         exist_ok=True
-
     )
-
-
-
-    path = (
-
-        "data/compliance_cases.json"
-
-    )
-
 
 
     with open(
-
-        path,
-
+        "data/compliance_cases.json",
         "w",
-
         encoding="utf-8"
-
     ) as f:
 
 
         json.dump(
-
             data,
-
             f,
-
             ensure_ascii=False,
-
             indent=4
-
         )
 
 
-
     print(
-        "保存完成:",
-        path
+        "JSON保存完成"
     )
 
 
 
 
-
-
-
-# ===============================
-# 主程序
-# ===============================
 
 if __name__ == "__main__":
 
