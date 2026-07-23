@@ -2,13 +2,7 @@ import requests
 import re
 
 
-BASE = "https://www.cfachina.org"
-
-
-URL = (
-    BASE +
-    "/informationpublicity/discipline/"
-)
+URL = "https://www.cfachina.org/informationpublicity/discipline/"
 
 
 HEADERS = {
@@ -18,142 +12,79 @@ HEADERS = {
 
 
 
-def get(url):
+def main():
 
     r = requests.get(
-        url,
+        URL,
         headers=HEADERS,
         timeout=30
     )
 
+
     r.encoding="utf-8"
 
-    return r.text
-
-
-
-
-def scan(text,name):
-
-    print("===================")
-    print(name)
-    print("===================")
-
-
-    keywords=[
-
-        "ajax",
-
-        "$.get",
-
-        "$.post",
-
-        "url",
-
-        "list",
-
-        "json",
-
-        "page",
-
-        "data",
-
-        "discipline",
-
-        "information"
-
-    ]
-
-
-    for k in keywords:
-
-        if k.lower() in text.lower():
-
-            print(
-                "发现:",
-                k
-            )
-
-
-
-
-def main():
-
-
-    html=get(URL)
+    html=r.text
 
 
     print(
-        "HTML:",
+        "长度:",
         len(html)
     )
 
 
-    # 找JS
+    print("===================")
+    print("查找 script")
+    print("===================")
 
-    js=re.findall(
 
-        r'<script.*?src="(.*?)"',
+    scripts=re.findall(
 
-        html
+        r"<script.*?>(.*?)</script>",
+
+        html,
+
+        re.S
 
     )
 
 
     print(
-        "JS数量:",
-        len(js)
+        "内嵌script数量:",
+        len(scripts)
     )
 
 
-
-    for item in js:
-
-
-        if not item.startswith("http"):
-
-            item=BASE+item
+    for i,s in enumerate(scripts):
 
 
+        if any(
 
-        print(
-            "检查:",
-            item
-        )
+            x in s.lower()
+
+            for x in [
+
+                "ajax",
+                "url",
+                "list",
+                "page",
+                "json",
+                "data"
+
+            ]
+
+        ):
 
 
+            print("===================")
 
-        try:
-
-            js_text=get(item)
-
-
-            scan(
-                js_text,
-                item
+            print(
+                "SCRIPT:",
+                i
             )
 
-
-            # 保存
-
-            filename=item.split("/")[-1]
-
-            with open(
-
-                "js_"+filename,
-
-                "w",
-
-                encoding="utf-8"
-
-            ) as f:
-
-                f.write(js_text)
-
-
-        except Exception as e:
-
-            print(e)
+            print(
+                s[:2000]
+            )
 
 
 
