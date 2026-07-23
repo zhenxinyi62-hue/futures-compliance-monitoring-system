@@ -1,58 +1,170 @@
 {
-  "violations": [
-    {
-      "id": 1,
-      "exchange": "上期所",
-      "company": "中国国际期货有限公司",
-      "type": "违规",
-      "content": "客户风险防范措施不到位，未及时采取措施防范交易风险",
-      "penalty": "警告，罚款50万元",
-      "date": "2024-07-20"
-    },
+  "generated_at": "2026-07-23T02:55:38",
+  "items": [
     {
       "id": 2,
-      "exchange": "大商所",
-      "company": "浙江永安期货有限公司",
+      "exchange": "中期协",
+      "company": "胡天德",
       "type": "违规",
-      "content": "持仓管理不规范，超限持仓超过规定额度",
-      "penalty": "警告，罚款30万元",
-      "date": "2024-07-19"
-    },
-    {
-      "id": 3,
-      "exchange": "郑商所",
-      "company": "南华期货股份有限公司",
-      "type": "通知",
-      "content": "关于做好强对流天气期间风险防范工作的通知",
-      "penalty": "",
-      "date": "2024-07-18"
+      "content": "关于对胡天德作出纪律处分的决定",
+      "penalty": "胡天德：暂停期货从业资格6个月",
+      "date": "2026-06-15",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202607/t20260717_89446.html",
+      "doc_no": "中期协字〔2026〕139号"
     },
     {
       "id": 4,
-      "exchange": "中金所",
-      "company": "申银万国期货有限公司",
-      "type": "处罚",
-      "content": "风险管理制度执行不力，风险控制措施不完善",
-      "penalty": "责令改正，罚款80万元",
-      "date": "2024-07-17"
-    },
-    {
-      "id": 5,
-      "exchange": "能源中心",
-      "company": "国泰君安期货有限公司",
+      "exchange": "中期协",
+      "company": "恒力期货有限公司",
       "type": "违规",
-      "content": "国际业务合规管理存在缺陷",
-      "penalty": "警告，罚款20万元",
-      "date": "2024-07-16"
+      "content": "关于对恒力期货有限公司及11名从业人员作出纪律处分的决定",
+      "penalty": "尤国培：公开谴责；何芳：公开谴责；戚永刚：公开谴责；张澄：公开谴责；田杨：公开谴责；陈茜苡：公开谴责；黄金科：公开谴责；钟小金：公开谴责；王健：公开谴责；张清平：训诫",
+      "date": "2026-06-05",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202607/t20260703_89137.html",
+      "doc_no": "中期协字〔2026〕128号"
     },
     {
       "id": 6,
-      "exchange": "广期所",
-      "company": "广州期货有限公司",
+      "exchange": "中期协",
+      "company": "先锋期货股份有限公司",
+      "type": "违规",
+      "content": "关于对先锋期货股份有限公司作出纪律处分的决定",
+      "penalty": "先锋期货：限期整改",
+      "date": "2026-06-01",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260624_88977.html",
+      "doc_no": "中期协字〔2026〕119号"
+    },
+    {
+      "id": 10,
+      "exchange": "中期协",
+      "company": "国富期货有限公司",
       "type": "通知",
-      "content": "关于调整棕榈油期货交易手续费的通知",
+      "content": "关于对国富期货有限公司作出纪律处分的决定",
       "penalty": "",
-      "date": "2024-07-15"
+      "date": "2026-05-14",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260612_88686.html",
+      "doc_no": "中期协字〔2026〕104号"
+    },
+    {
+      "id": 11,
+      "exchange": "中期协",
+      "company": "徐霄",
+      "type": "违规",
+      "content": "关于对徐霄作出纪律处分的决定",
+      "penalty": "徐霄：训诫",
+      "date": "2026-05-14",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260605_88584.html",
+      "doc_no": "中期协字〔2026〕100号"
+    },
+    {
+      "id": 12,
+      "exchange": "中期协",
+      "company": "中泰期货股份有限公司",
+      "type": "违规",
+      "content": "关于对中泰期货股份有限公司作出纪律处分的决定",
+      "penalty": "中泰期货：限期整改",
+      "date": "2026-05-14",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260604_88564.html",
+      "doc_no": "中期协字〔2026〕97号"
+    },
+    {
+      "id": 15,
+      "exchange": "中期协",
+      "company": "光大光子投资管理有限公司",
+      "type": "违规",
+      "content": "关于对光大光子投资管理有限公司作出纪律处分的决定",
+      "penalty": "光大光子：公开谴责",
+      "date": "2026-04-30",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202605/t20260526_88445.html",
+      "doc_no": "中期协字〔2026〕87号"
+    },
+    {
+      "id": 14,
+      "exchange": "中期协",
+      "company": "渤海融盛资本管理有限公司",
+      "type": "违规",
+      "content": "关于对渤海融盛资本管理有限公司作出纪律处分的决定",
+      "penalty": "渤海融盛：限期整改",
+      "date": "2026-04-24",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202605/t20260526_88446.html",
+      "doc_no": "中期协字〔2026〕84号"
+    },
+    {
+      "id": 7,
+      "exchange": "中期协",
+      "company": "迈科期货股份",
+      "type": "违规",
+      "content": "关于对迈科期货股份有限公司及赵健、郭明作出纪律处分的决定",
+      "penalty": "迈科期货：限期整改；赵健：公开谴责；郭明：公开谴责",
+      "date": "2026-02-06",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260624_88965.html",
+      "doc_no": "中期协字〔2026〕118号"
+    },
+    {
+      "id": 3,
+      "exchange": "中期协",
+      "company": "恒银期货有限公司",
+      "type": "处罚",
+      "content": "关于对恒银期货有限公司、张云帆、刘同刚、孙瞳作出纪律处分的决定",
+      "penalty": "恒银期货：暂停会员资格12个月；张云帆：公开谴责；刘同刚：训诫；孙瞳：训诫",
+      "date": "2025-12-09",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202607/t20260710_89309.html",
+      "doc_no": "中期协字〔2026〕129号"
+    },
+    {
+      "id": 1,
+      "exchange": "中期协",
+      "company": "中辉期货有限公司",
+      "type": "违规",
+      "content": "关于对中辉期货有限公司、李梓平出纪律处分的决定",
+      "penalty": "李梓平：公开谴责",
+      "date": "",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202607/t20260717_89448.html",
+      "doc_no": "中期协字〔2026〕138号"
+    },
+    {
+      "id": 5,
+      "exchange": "中期协",
+      "company": "天富期货有限公司",
+      "type": "违规",
+      "content": "关于对天富期货有限公司、林艳娇、韩钰昂作出纪律处分的决定",
+      "penalty": "天富期货：限期整改；林艳娇：公开谴责；韩钰昂：公开谴责",
+      "date": "",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202607/t20260703_89134.html",
+      "doc_no": "中期协字〔2026〕127号"
+    },
+    {
+      "id": 8,
+      "exchange": "中期协",
+      "company": "程细辛",
+      "type": "通知",
+      "content": "关于对程细辛作出纪律处分的决定",
+      "penalty": "",
+      "date": "",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260612_88691.html",
+      "doc_no": "中期协字〔2026〕102号"
+    },
+    {
+      "id": 9,
+      "exchange": "中期协",
+      "company": "中财期货有限公司",
+      "type": "违规",
+      "content": "关于对中财期货有限公司、杨伟、郭燕平作出纪律处分的决定",
+      "penalty": "中财期货：限期整改；杨伟：公开谴责；郭燕平：公开谴责",
+      "date": "",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202606/t20260612_88690.html",
+      "doc_no": "中期协字〔2026〕103号"
+    },
+    {
+      "id": 13,
+      "exchange": "中期协",
+      "company": "重庆鼎富瑞泽风险管理有限公司",
+      "type": "违规",
+      "content": "关于对重庆鼎富瑞泽风险管理有限公司作出纪律处分的决定",
+      "penalty": "鼎富瑞泽：训诫",
+      "date": "",
+      "source_url": "https://www.cfachina.org/informationpublicity/discipline/202605/t20260526_88453.html",
+      "doc_no": "中期协字〔2026〕88号"
     }
   ]
 }
