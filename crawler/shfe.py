@@ -18,7 +18,9 @@ def crawl_shfe():
     )
 
     response.encoding = "utf-8"
-
+    print(response.status_code)
+    print(response.text[:1000])
+    
     soup = BeautifulSoup(
         response.text,
         "html.parser"
