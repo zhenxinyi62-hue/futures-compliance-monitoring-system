@@ -23,7 +23,8 @@ body{
 
     font-family:
     "Microsoft YaHei",
-    Arial;
+    Arial,
+    sans-serif;
 
     background:#f4f6fa;
 
@@ -32,46 +33,61 @@ body{
 }
 
 
+
 .container{
 
-    width:1200px;
+    width:95%;
 
-    max-width:95%;
+    max-width:1200px;
 
-    margin:30px auto;
+    margin:20px auto;
 
 }
 
 
-
-/* 顶部 */
 
 .header{
 
     background:white;
 
-    padding:35px;
+    padding:30px;
 
     border-radius:12px;
 
     box-shadow:
-    0 5px 20px rgba(0,0,0,.08);
+    0 3px 15px rgba(0,0,0,.08);
+
+    margin-bottom:20px;
 
 }
+
 
 
 .header h1{
 
     text-align:center;
 
-    color:#1e5aa8;
+    color:#1e6bd6;
 
     font-size:32px;
 
 }
 
 
-.header p{
+
+.subtitle{
+
+    text-align:center;
+
+    color:#777;
+
+    margin-top:10px;
+
+}
+
+
+
+.update{
 
     text-align:center;
 
@@ -84,59 +100,96 @@ body{
 
 
 
-/* 数据统计 */
+
+.filter-box{
+
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(200px,1fr));
+
+    gap:15px;
+
+
+}
+
+
+
+input,select,button{
+
+
+    padding:10px;
+
+    border-radius:6px;
+
+    border:1px solid #ddd;
+
+    font-size:14px;
+
+
+}
+
+
+
+button{
+
+
+    background:#1e6bd6;
+
+    color:white;
+
+    cursor:pointer;
+
+    border:none;
+
+
+}
+
+
+button:hover{
+
+    background:#1454aa;
+
+}
+
+
+
+
+
 
 .statistics{
 
-    display:flex;
 
-    gap:20px;
+    display:grid;
 
-    margin:25px 0;
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(180px,1fr));
+
+
+    gap:15px;
+
+    margin-bottom:20px;
+
 
 }
+
+
 
 
 .card{
 
-    flex:1;
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:10px;
-
-    text-align:center;
-
-    box-shadow:
-    0 4px 15px rgba(0,0,0,.08);
-
-}
-
-
-.card h2{
-
-    color:#1e5aa8;
-
-    font-size:32px;
-
-}
-
-
-
-.card span{
-
-    color:#777;
-
-}
-
-
-
-
-/* 搜索 */
-
-.search{
 
     background:white;
 
@@ -144,67 +197,104 @@ body{
 
     border-radius:10px;
 
-    margin-bottom:25px;
+    text-align:center;
 
-}
-
-
-
-.search input{
-
-    width:100%;
-
-    padding:12px;
-
-    border:
-
-    1px solid #ddd;
-
-    border-radius:6px;
-
-    font-size:16px;
-
-}
-
-
-
-
-/* 信息卡片 */
-
-
-.notice{
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:25px;
-
-    margin-bottom:20px;
 
     box-shadow:
 
-    0 4px 15px rgba(0,0,0,.08);
+    0 3px 10px rgba(0,0,0,.08);
 
-
-    border-left:
-
-    5px solid #d9534f;
 
 }
 
 
 
-.company{
+.number{
 
 
-    font-size:22px;
+    font-size:30px;
+
+    color:#1e6bd6;
 
     font-weight:bold;
 
-    color:#b52b27;
+}
+
+
+
+.label{
+
+    margin-top:8px;
+
+    color:#666;
+
+}
+
+
+
+
+
+
+
+.data-area{
+
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+
+}
+
+
+
+
+
+.item{
+
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:20px;
 
     margin-bottom:15px;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.item:hover{
+
+
+    box-shadow:
+
+    0 5px 15px rgba(0,0,0,.12);
+
+
+}
+
+
+
+
+.title{
+
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#1e6bd6;
+
+    margin-bottom:10px;
+
 
 }
 
@@ -215,17 +305,17 @@ body{
 
     display:inline-block;
 
+    background:#e8f1ff;
+
+    color:#1e6bd6;
+
     padding:5px 12px;
 
     border-radius:20px;
 
-    background:#eef4ff;
+    margin-right:8px;
 
-    color:#1e5aa8;
-
-    margin-right:10px;
-
-    font-size:14px;
+    font-size:13px;
 
 
 }
@@ -234,19 +324,21 @@ body{
 
 .info{
 
-    margin-top:18px;
 
     line-height:1.8;
+
+    margin-top:10px;
+
 
 }
 
 
 
-.label{
+.info span{
+
 
     font-weight:bold;
 
-    color:#333;
 
 }
 
@@ -259,16 +351,16 @@ body{
 
     margin-top:15px;
 
-    color:#1e5aa8;
+    color:#1e6bd6;
 
     text-decoration:none;
-
-    font-weight:bold;
 
 }
 
 
+
 .link:hover{
+
 
     text-decoration:underline;
 
@@ -276,13 +368,40 @@ body{
 
 
 
-.footer{
+
+
+.pagination{
+
 
     text-align:center;
 
-    color:#888;
+    margin:20px;
 
-    margin:40px;
+
+}
+
+
+
+.pagination button{
+
+
+    margin:5px;
+
+}
+
+
+
+
+
+.footer{
+
+
+    text-align:center;
+
+    color:#777;
+
+    padding:20px;
+
 
 }
 
@@ -300,19 +419,132 @@ body{
 <div class="container">
 
 
+
 <div class="header">
+
 
 <h1>
 📊 期货合规监测系统
 </h1>
 
 
-<p>
-实时监测期货行业监管处罚、自律处分及风险信息
-</p>
+<div class="subtitle">
+
+实时监测期货行业违规、纪律处分及监管信息
+
+</div>
+
+
+<div class="update" id="updateTime">
+
+数据加载中...
+
+</div>
 
 
 </div>
+
+
+
+
+
+
+
+<div class="filter-box">
+
+
+<input
+
+id="search"
+
+placeholder="搜索公司、人员、违规事项">
+
+
+<select id="exchange">
+
+
+<option value="">
+全部机构
+</option>
+
+
+<option value="中期协">
+中国期货业协会
+</option>
+
+
+<option value="上期所">
+上海期货交易所
+</option>
+
+
+<option value="大商所">
+大连商品交易所
+</option>
+
+
+<option value="郑商所">
+郑州商品交易所
+</option>
+
+
+<option value="中金所">
+中国金融期货交易所
+</option>
+
+
+</select>
+
+
+
+
+
+<select id="type">
+
+
+<option value="">
+全部类型
+</option>
+
+
+<option value="纪律处分">
+纪律处分
+</option>
+
+
+<option value="违规">
+违规
+</option>
+
+
+<option value="处罚">
+处罚
+</option>
+
+
+<option value="通知">
+通知
+</option>
+
+
+</select>
+
+
+
+
+<button onclick="clearFilter()">
+
+清空筛选
+
+</button>
+
+
+</div>
+
+
+
+
+
 
 
 
@@ -321,67 +553,115 @@ body{
 
 <div class="card">
 
-<h2 id="total">
-0
-</h2>
+<div class="number" id="total">
 
-<span>
-监管信息数量
-</span>
+0
+
+</div>
+
+<div class="label">
+
+总记录数
+
+</div>
 
 </div>
 
 
 
+
+
 <div class="card">
 
-<h2 id="company">
-0
-</h2>
+<div class="number" id="companyCount">
 
-<span>
+0
+
+</div>
+
+<div class="label">
+
 涉及机构
-</span>
 
 </div>
+
+</div>
+
+
 
 
 
 <div class="card">
 
-<h2 id="source">
+<div class="number" id="typeCount">
+
 0
+
+</div>
+
+<div class="label">
+
+处分类型
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="data-area">
+
+
+<h2>
+违规/纪律处分记录
 </h2>
-
-<span>
-监管来源
-</span>
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="search">
-
-<input
-id="search"
-placeholder="搜索公司名称、违规事项..."
->
-
-</div>
-
-
 
 
 <div id="list">
 
+加载中...
 
-正在加载数据...
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="pagination">
+
+
+<button onclick="prevPage()">
+
+上一页
+
+</button>
+
+
+<span id="pageInfo">
+
+</span>
+
+
+<button onclick="nextPage()">
+
+下一页
+
+</button>
 
 
 </div>
@@ -389,7 +669,6 @@ placeholder="搜索公司名称、违规事项..."
 
 
 </div>
-
 
 
 
@@ -397,13 +676,7 @@ placeholder="搜索公司名称、违规事项..."
 
 © 2026 期货合规监测系统
 
-<br>
-
-数据来源：中国期货业协会公开信息
-
-
 </div>
-
 
 
 
@@ -411,112 +684,309 @@ placeholder="搜索公司名称、违规事项..."
 
 <script>
 
+// 第2部分从这里开始替换
+let allData = [];
 
-let data=[];
+let filteredData = [];
+
+let currentPage = 1;
+
+const pageSize = 10;
 
 
+
+// 页面加载
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadData();
+
+        document
+        .getElementById("search")
+        .addEventListener(
+            "input",
+            filterData
+        );
+
+
+        document
+        .getElementById("exchange")
+        .addEventListener(
+            "change",
+            filterData
+        );
+
+
+        document
+        .getElementById("type")
+        .addEventListener(
+            "change",
+            filterData
+        );
+
+    }
+);
+
+
+
+
+
+
+// 读取JSON
 
 async function loadData(){
 
 
-try{
+    try{
 
 
-let res =
-await fetch(
-"./data/compliance_cases.json",
-{
-cache:"no-store"
+        const response = await fetch(
+
+            "./data/compliance_cases.json",
+
+            {
+                cache:"no-store"
+            }
+
+        );
+
+
+
+        const json = await response.json();
+
+
+
+        allData = json;
+
+
+
+        filteredData = [...allData];
+
+
+
+        updateStatistics();
+
+
+
+        filterData();
+
+
+
+        document
+        .getElementById("updateTime")
+        .innerHTML =
+        "数据更新时间：" +
+        new Date()
+        .toLocaleString();
+
+
+
+    }
+
+    catch(error){
+
+
+        document
+        .getElementById("list")
+        .innerHTML =
+        `
+        <h3>
+        数据加载失败
+        </h3>
+        <p>
+        请检查 data/compliance_cases.json 是否存在
+        </p>
+        `;
+
+
+        console.log(error);
+
+
+    }
+
+
 }
-);
 
 
 
-data =
-await res.json();
 
 
 
-showData(data);
 
 
+
+// 筛选
+
+function filterData(){
+
+
+    let keyword =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase();
+
+
+
+    let exchange =
+    document
+    .getElementById("exchange")
+    .value;
+
+
+
+    let type =
+    document
+    .getElementById("type")
+    .value;
+
+
+
+
+
+    filteredData =
+    allData.filter(
+
+        item=>{
+
+
+            let text = (
+
+                (item.company || "") +
+
+                (item.title || "") +
+
+                (item.violation || "")
+
+            )
+            .toLowerCase();
+
+
+
+            let matchKeyword =
+            !keyword ||
+            text.includes(keyword);
+
+
+
+            let matchExchange =
+            !exchange ||
+            item.exchange === exchange;
+
+
+
+            let matchType =
+            !type ||
+            item.type === type;
+
+
+
+            return (
+
+                matchKeyword
+                &&
+                matchExchange
+                &&
+                matchType
+
+            );
+
+        }
+
+    );
+
+
+
+    currentPage=1;
+
+
+
+    render();
 
 }
-catch(e){
-
-
-document.getElementById("list").innerHTML=
-
-"数据加载失败";
-
-
-}
-
-
-
-}
 
 
 
 
 
-function showData(items){
+// 展示数据
+
+function render(){
 
 
-let html="";
-
-
-
-let companies=new Set();
-
-let sources=new Set();
-
-
-
-items.forEach(item=>{
-
-
-companies.add(
-item.company
-||
-"未知机构"
-);
-
-
-sources.add(
-item.source
-);
+    let start =
+    (currentPage-1)
+    *
+    pageSize;
 
 
 
-html+=`
+    let end =
+    start+
+    pageSize;
 
 
-<div class="notice">
+
+    let pageData =
+    filteredData.slice(
+        start,
+        end
+    );
 
 
-<div class="company">
 
-${item.company || "未知机构"}
+    let html="";
+
+
+
+    if(pageData.length===0){
+
+
+        html=
+        `
+        <div class="item">
+        暂无数据
+        </div>
+        `;
+
+
+    }
+
+
+
+    pageData.forEach(
+
+        item=>{
+
+
+            html +=
+
+`
+<div class="item">
+
+
+<div class="title">
+
+${escapeHtml(item.company || "未识别机构")}
 
 </div>
 
 
 
+<div>
+
 <span class="tag">
-
-${item.source || "监管机构"}
-
+${item.source || "中国期货业协会"}
 </span>
 
 
-
 <span class="tag">
-
-${item.type || "监管信息"}
-
+${item.type || "纪律处分"}
 </span>
 
+</div>
 
 
 
@@ -525,11 +995,11 @@ ${item.type || "监管信息"}
 
 <p>
 
-<span class="label">
-违规事项：
+<span>
+事项：
 </span>
 
-${item.violation || item.title || ""}
+${escapeHtml(item.title || item.violation)}
 
 </p>
 
@@ -537,11 +1007,11 @@ ${item.violation || item.title || ""}
 
 <p>
 
-<span class="label">
-处理结果：
+<span>
+涉及机构：
 </span>
 
-${item.penalty || "详见公告"}
+${escapeHtml(item.company || "未识别机构")}
 
 </p>
 
@@ -549,11 +1019,23 @@ ${item.penalty || "详见公告"}
 
 <p>
 
-<span class="label">
+<span>
 日期：
 </span>
 
-${item.date || "暂无"}
+${item.date || ""}
+
+</p>
+
+
+
+<p>
+
+<span>
+处分内容：
+</span>
+
+${escapeHtml(item.penalty || "详见公告")}
 
 </p>
 
@@ -563,13 +1045,17 @@ ${item.date || "暂无"}
 
 
 
-<a class="link"
+<a
 
-href="${item.url || '#'}"
+class="link"
 
-target="_blank">
+href="${item.url}"
 
-🔗 查看原文
+target="_blank"
+
+>
+
+🔗 查看中国期货业协会公告
 
 </a>
 
@@ -577,30 +1063,33 @@ target="_blank">
 
 </div>
 
-
 `;
 
+        }
 
-
-});
-
-
-
-document.getElementById("list")
-.innerHTML=html;
+    );
 
 
 
-document.getElementById("total")
-.innerHTML=items.length;
+    document
+    .getElementById("list")
+    .innerHTML =
+    html;
 
 
-document.getElementById("company")
-.innerHTML=companies.size;
 
+    document
+    .getElementById("pageInfo")
+    .innerHTML =
 
-document.getElementById("source")
-.innerHTML=sources.size;
+    `
+    第 ${currentPage}
+    /
+    ${Math.ceil(
+        filteredData.length/pageSize
+    ) || 1}
+    页
+    `;
 
 
 
@@ -610,42 +1099,179 @@ document.getElementById("source")
 
 
 
-document
-.getElementById("search")
-.addEventListener(
-"input",
-function(){
-
-
-let key=this.value;
-
-
-let result=data.filter(
-item=>
-
-JSON.stringify(item)
-.includes(key)
-
-);
-
-
-
-showData(result);
-
-
-});
 
 
 
 
-loadData();
+// 统计
 
+function updateStatistics(){
+
+
+    document
+    .getElementById("total")
+    .innerHTML =
+    allData.length;
+
+
+
+    let companies =
+    new Set(
+
+        allData.map(
+
+            x=>x.company
+
+        )
+
+    );
+
+
+
+    document
+    .getElementById("companyCount")
+    .innerHTML =
+    companies.size;
+
+
+
+    let types =
+    new Set(
+
+        allData.map(
+
+            x=>x.type
+
+        )
+
+    );
+
+
+    document
+    .getElementById("typeCount")
+    .innerHTML =
+    types.size;
+
+
+}
+
+
+
+
+
+
+
+// 清空
+
+function clearFilter(){
+
+
+    document
+    .getElementById("search")
+    .value="";
+
+
+    document
+    .getElementById("exchange")
+    .value="";
+
+
+    document
+    .getElementById("type")
+    .value="";
+
+
+    filterData();
+
+
+}
+
+
+
+
+
+
+
+
+// 分页
+
+function nextPage(){
+
+
+    let max =
+    Math.ceil(
+        filteredData.length/pageSize
+    );
+
+
+
+    if(currentPage < max){
+
+        currentPage++;
+
+        render();
+
+    }
+
+
+}
+
+
+
+
+function prevPage(){
+
+
+    if(currentPage>1){
+
+        currentPage--;
+
+        render();
+
+    }
+
+
+}
+
+
+
+
+
+
+// 防止特殊字符影响页面
+
+function escapeHtml(str){
+
+
+    if(!str)
+        return "";
+
+
+
+    return str
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    );
+
+}
 
 
 </script>
 
 
 </body>
-
 
 </html>
