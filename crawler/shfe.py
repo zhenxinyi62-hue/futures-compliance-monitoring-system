@@ -5,7 +5,7 @@ import json
 
 def crawl_shfe():
 
-    url = "https://www.shfe.cn/publicnotice/notice/"
+    url = "https://www.shfe.cn/publicnotice/"
 
     headers = {
         "User-Agent": "Mozilla/5.0"
