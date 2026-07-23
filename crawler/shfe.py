@@ -28,6 +28,10 @@ def crawl_shfe():
     announcements = []
 
 
+    for a in soup.find_all("a"):
+        print(a.get_text(strip=True), a.get("href"))
+
+
     for item in soup.find_all("a"):
 
         title = item.get_text(strip=True)
