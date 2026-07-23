@@ -529,26 +529,147 @@
         }
 
         async function loadData() {
-            try {
-                const res = await fetch('./data/violations.json', {cache: 'no-store'});
-                if (!res.ok) throw new Error('尚未生成远程数据文件');
-                const payload = await res.json();
-                // 期望结构：{ generated_at: "2026-07-23T06:30:00", items: [...] }
-                if (payload && Array.isArray(payload.items) && payload.items.length) {
-                    allData = payload.items;
-                    dataLastUpdated = payload.generated_at || null;
-                } else {
-                    throw new Error('远程数据为空');
-                }
-            } catch (e) {
-                console.info('未获取到真实抓取数据，使用内置兜底数据：', e.message);
-                allData = FALLBACK_DATA;
-                dataLastUpdated = null; // null 代表这是兜底数据，不是真实抓取时间
+
+    try {
+
+        const res = await fetch(
+            './data/compliance_cases.json',
+            {
+                cache: 'no-store'
             }
-            filterAndDisplay();
-            updateStatistics();
-            updateLastUpdateTime();
+        );
+
+
+        if (!res.ok) {
+
+            throw new Error(
+                '未找到 compliance_cases.json'
+            );
+
         }
+
+
+        const payload = await res.json();
+
+
+        if (
+            Array.isArray(payload)
+            &&
+            payload.length > 0
+        ) {
+
+
+            allData = payload.map(
+                (item, index) => {
+
+
+                    return {
+
+                        id:
+                            index + 1,
+
+
+                        exchange:
+                            item.source
+                            ||
+                            "中国期货业协会",
+
+
+                        company:
+                            item.company
+                            ||
+                            "期货经营机构",
+
+
+                        type:
+                            item.type
+                            ||
+                            "合规处分",
+
+
+                        content:
+                            item.title
+                            ||
+                            "暂无标题",
+
+
+                        penalty:
+                            item.penalty
+                            ||
+                            "",
+
+
+                        date:
+                            item.date
+                            ||
+                            "2026-07-23",
+
+
+                        url:
+                            item.url
+                            ||
+                            ""
+
+                    };
+
+
+                }
+            );
+
+
+            dataLastUpdated =
+                new Date().toISOString();
+
+
+
+            console.log(
+                "成功加载中期协数据:",
+                allData.length,
+                "条"
+            );
+
+
+        } else {
+
+
+            throw new Error(
+                "JSON数据为空"
+            );
+
+
+        }
+
+
+
+    } catch (e) {
+
+
+        console.info(
+            "真实数据加载失败，使用备用数据:",
+            e.message
+        );
+
+
+        allData =
+            FALLBACK_DATA;
+
+
+        dataLastUpdated =
+            null;
+
+
+    }
+
+
+
+    filterAndDisplay();
+
+    updateStatistics();
+
+    updateLastUpdateTime();
+
+
+}
 
         function filterAndDisplay() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
