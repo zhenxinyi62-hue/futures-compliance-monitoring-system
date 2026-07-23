@@ -92,6 +92,12 @@ def crawl_cfa():
 
 
     html = response.text
+    with open(
+    "cfa_full.html",
+    "w",
+    encoding="utf-8"
+    ) as f:
+    f.write(html)
 
 
     print(
