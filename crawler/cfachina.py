@@ -183,7 +183,10 @@ def crawl_cfa():
 
     )
 
-
+    
+    print(response.text[:1000]
+    print("==================="))
+    print("===================")
 
     data = []
 
