@@ -30,8 +30,29 @@ jobs:
           pip install requests beautifulsoup4
 
 
-      - name: Run
+      - name: Run CFA crawler
 
         run: |
 
           python crawler/cfachina.py
+
+
+      - name: Commit JSON
+
+        run: |
+
+          git config user.name github-actions
+
+          git config user.email github-actions@github.com
+
+
+          git add data/compliance_cases.json
+
+
+          if ! git diff --cached --quiet; then
+
+            git commit -m "Update CFA compliance data"
+
+            git push
+
+          fi
