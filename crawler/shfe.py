@@ -1,17 +1,20 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import re
 
 
 def crawl_shfe():
 
     url = "https://www.shfe.com.cn/publicnotice/"
 
+
     headers = {
         "User-Agent": (
             "Mozilla/5.0 "
             "(Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 "
+            "(KHTML, like Gecko) "
             "Chrome/120 Safari/537.36"
         ),
         "Referer": "https://www.shfe.com.cn/"
@@ -28,78 +31,75 @@ def crawl_shfe():
     response.encoding = "utf-8"
 
 
+    print("====================")
     print("状态码:", response.status_code)
-
     print("网页长度:", len(response.text))
+    print("====================")
 
 
+    # 打印网页标题
     soup = BeautifulSoup(
         response.text,
         "html.parser"
     )
 
 
-    announcements = []
-
-
-    # 查找公告链接
-    for a in soup.find_all("a"):
-
-        title = a.get_text(
-            strip=True
-        )
-
-        link = a.get(
-            "href"
+    if soup.title:
+        print(
+            "网页标题:",
+            soup.title.text.strip()
         )
 
 
-        if not title:
-            continue
+    print("====================")
+    print("查找可能的数据接口")
+    print("====================")
 
 
-        # 只保留公告
-        if (
-            "公告" in title
-            or "通知" in title
-        ):
-
-            if link:
-
-                if link.startswith("/"):
-
-                    link = (
-                        "https://www.shfe.com.cn"
-                        + link
-                    )
-
-
-                # 去重
-                exists = any(
-                    x["url"] == link
-                    for x in announcements
-                )
-
-
-                if not exists:
-
-                    announcements.append(
-                        {
-                            "exchange": "SHFE",
-                            "title": title,
-                            "type": "交易所公告",
-                            "url": link
-                        }
-                    )
-
-
-    print(
-        "抓取公告数量:",
-        len(announcements)
+    # 查找网页中的URL
+    urls = re.findall(
+        r'https?://[^"\']+',
+        response.text
     )
 
 
-    return announcements
+    for u in urls:
+
+        print(u)
+
+
+
+    print("====================")
+    print("查找api关键词")
+    print("====================")
+
+
+    # 查找可能的接口关键词
+    keywords = [
+        "api",
+        "json",
+        "ajax",
+        "notice",
+        "publicnotice",
+        "list",
+        "page"
+    ]
+
+
+    for key in keywords:
+
+        if key.lower() in response.text.lower():
+
+            print(
+                "发现关键词:",
+                key
+            )
+
+
+    print("====================")
+
+
+    return []
 
 
 
