@@ -1,84 +1,49 @@
 import requests
-from bs4 import BeautifulSoup
-import json
 import re
+import json
 import os
-from datetime import datetime
+from bs4 import BeautifulSoup
 
 
-URL = "https://www.cfachina.org/informationpublicity/discipline/"
+# ==========================
+# 中期协纪律处分页面
+# ==========================
+
+URL = (
+    "https://www.cfachina.org/"
+    "informationpublicity/discipline/"
+)
 
 
 HEADERS = {
-    "User-Agent": 
+
+    "User-Agent":
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+
 }
 
 
-BASE_URL = "https://www.cfachina.org"
 
+# ==========================
+# 获取网页
+# ==========================
 
-
-def fix_url(url):
-
-    if not url:
-        return ""
-
-    if url.startswith("http"):
-        return url
-
-    if url.startswith("./"):
-        return BASE_URL + "/" + url[2:]
-
-    if url.startswith("/"):
-        return BASE_URL + url
-
-    return BASE_URL + "/" + url
-
-
-
-def extract_company(title):
-
-    patterns = [
-
-        r"关于对(.*?期货有限公司)",
-        r"(.*?期货有限公司)",
-        r"对(.*?期货公司)"
-
-    ]
-
-
-    for p in patterns:
-
-        result = re.search(
-            p,
-            title
-        )
-
-        if result:
-
-            return result.group(1)
-
-
-
-    return "未识别机构"
-
-
-
-
-def crawl_cfa():
+def get_html():
 
 
     print("===================")
-    print("开始访问中期协")
+    print("访问中期协")
     print("===================")
-
 
 
     response = requests.get(
+
         URL,
+
         headers=HEADERS,
+
         timeout=30
+
     )
 
 
@@ -88,16 +53,10 @@ def crawl_cfa():
     )
 
 
-    response.encoding = "utf-8"
+    response.encoding="utf-8"
 
 
     html = response.text
-    with open(
-    "cfa_full.html",
-    "w",
-    encoding="utf-8"
-    ) as f:
-    f.write(html)
 
 
     print(
@@ -106,219 +65,281 @@ def crawl_cfa():
     )
 
 
+    return html
 
-    # 保存网页
+
+
+
+
+# ==========================
+# 保存网页
+# ==========================
+
+def save_html(html):
+
+
     with open(
+
         "cfa_debug.html",
+
         "w",
+
         encoding="utf-8"
+
     ) as f:
 
         f.write(html)
 
 
 
+    print(
+        "已保存 cfa_debug.html"
+    )
+
+
+
+
+
+# ==========================
+# 搜索接口
+# ==========================
+
+def find_api(html):
+
+
     print("===================")
-    print("网页前500字符")
+    print("搜索接口关键词")
     print("===================")
 
-    print(
-        html[:500]
+
+
+    keywords = [
+
+        "ajax",
+
+        "api",
+
+        "json",
+
+        "list",
+
+        "page",
+
+        "discipline",
+
+        "information",
+
+        "search"
+
+    ]
+
+
+
+    for k in keywords:
+
+
+        count = html.lower().count(k)
+
+
+        print(
+
+            k,
+
+            "出现",
+
+            count,
+
+            "次"
+
+        )
+
+
+
+    print("===================")
+
+
+
+    # 查找URL
+
+    urls = re.findall(
+
+        r"""
+
+        (?:
+        https?://
+        |
+        /
+        )
+
+        [^"'<> ]+
+
+        """,
+
+        html
+
     )
+
+
+
+    print(
+        "发现URL数量:",
+        len(urls)
+    )
+
+
+
+    for u in urls[:50]:
+
+        if any(
+
+            key in u.lower()
+
+            for key in [
+
+                "api",
+
+                "json",
+
+                "list",
+
+                "discipline",
+
+                "search"
+
+            ]
+
+        ):
+
+            print(
+                "可能接口:",
+                u
+            )
+
+
+
+
+
+
+
+# ==========================
+# 查找JS文件
+# ==========================
+
+def find_js(html):
+
+
+    print("===================")
+
+    print("JS文件")
+
+    print("===================")
 
 
 
     soup = BeautifulSoup(
+
         html,
+
         "html.parser"
+
     )
 
 
-
-    links = soup.find_all("a")
-
-
-
-    print("===================")
-    print(
-        "链接数量:",
-        len(links)
-    )
-    print("===================")
-
-
-
-    data = []
-
-    seen=set()
-
-
-
-    for a in links:
-
-
-        title = a.text.strip()
-
-        href = a.get("href")
-
-
-
-        if not title or not href:
-            continue
-
-
-
-        url = fix_url(href)
-
-
-
-        # 打印可能公告
-
-        if (
-            "纪律" in title
-            or
-            "处分" in title
-            or
-            "决定" in title
-        ):
-
-            print(
-                "发现:",
-                title
-            )
-
-            print(
-                url
-            )
-
-
-        # 排除栏目
-
-        if href.endswith(
-            "discipline/"
-        ):
-
-            continue
-
-
-
-        # 只保存详情页
-
-        if (
-            "discipline/" not in url
-        ):
-
-            continue
-
-
-
-        if url in seen:
-            continue
-
-
-        seen.add(url)
-
-
-
-        item = {
-
-            "exchange":
-                "中期协",
-
-            "source":
-                "中国期货业协会",
-
-            "company":
-                extract_company(title),
-
-            "person":
-                "",
-
-            "title":
-                title,
-
-            "type":
-                "纪律处分",
-
-            "violation":
-                title,
-
-            "penalty":
-                "详见中国期货业协会公告",
-
-            "date":
-                datetime.now()
-                .strftime(
-                    "%Y-%m-%d"
-                ),
-
-            "url":
-                url
-
-        }
-
-
-        data.append(item)
-
-
-
-    print("===================")
-
-    print(
-        "抓取公告数量:",
-        len(data)
-    )
-
-    print("===================")
-
-
-
-    return data
-
-
-
-
-def save_data(data):
-
-
-    os.makedirs(
-        "data",
-        exist_ok=True
+    scripts = soup.find_all(
+        "script"
     )
 
 
-    with open(
-        "data/compliance_cases.json",
-        "w",
-        encoding="utf-8"
-    ) as f:
+    for s in scripts:
 
 
-        json.dump(
-            data,
-            f,
-            ensure_ascii=False,
-            indent=4
+        src = s.get(
+            "src"
         )
 
 
+        if src:
+
+            print(src)
+
+
+
+
+
+
+# ==========================
+# 测试公告关键词
+# ==========================
+
+def search_notice(html):
+
+
+    print("===================")
+
+    print("关键词测试")
+
+    print("===================")
+
+
+    words=[
+
+        "中辉期货",
+
+        "恒银期货",
+
+        "恒力期货",
+
+        "纪律处分",
+
+        "中期协字"
+
+    ]
+
+
+    for w in words:
+
+
+        print(
+
+            w,
+
+            html.find(w)
+
+        )
+
+
+
+
+
+
+
+# ==========================
+# 主程序
+# ==========================
+
+
+if __name__=="__main__":
+
+
+    html = get_html()
+
+
+    save_html(html)
+
+
+    find_api(html)
+
+
+    find_js(html)
+
+
+    search_notice(html)
+
+
+    print("===================")
+
     print(
-        "JSON保存完成"
+        "检测完成"
     )
 
-
-
-
-
-if __name__ == "__main__":
-
-
-    result = crawl_cfa()
-
-
-    save_data(result)
-
-
-    print(
-        "中期协更新完成"
-    )
+    print("===================")
