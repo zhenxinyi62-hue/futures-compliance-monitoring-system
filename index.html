@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期货合规监测系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>📊 期货合规监测系统</h1>
+                <p class="subtitle">实时监测各大期货交易所违规情况与通知</p>
+                <div class="last-update">
+                    <span id="updateTime">最后更新: 加载中...</span>
+                    <button id="refreshBtn" class="refresh-btn">🔄 立即更新</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-filter-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索企业名称、违规内容..." class="search-input">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filter-box">
+                <div class="filter-group">
+                    <label for="exchangeFilter">交易所:</label>
+                    <select id="exchangeFilter" class="filter-select">
+                        <option value="">全部交易所</option>
+                        <option value="上期所">上期所</option>
+                        <option value="大商所">大商所</option>
+                        <option value="郑商所">郑商所</option>
+                        <option value="中金所">中金所</option>
+                        <option value="广期所">广期所</option>
+                        <option value="能源中心">能源中心</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="typeFilter">类型:</label>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="">全部类型</option>
+                        <option value="违规">违规</option>
+                        <option value="通知">通知</option>
+                        <option value="处罚">处罚</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="dateFilter">时间范围:</label>
+                    <select id="dateFilter" class="filter-select">
+                        <option value="">全部</option>
+                        <option value="7">最近7天</option>
+                        <option value="30">最近30天</option>
+                        <option value="90">最近90天</option>
+                    </select>
+                </div>
+
+                <button id="clearFilterBtn" class="clear-filter-btn">清空筛选</button>
+            </div>
+        </div>
+
+        <div class="statistics">
+            <div class="stat-card">
+                <div class="stat-value" id="totalCount">0</div>
+                <div class="stat-label">总记录数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="violationCount">0</div>
+                <div class="stat-label">违规企业</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="exchangeCount">0</div>
+                <div class="stat-label">涉及交易所</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="notificationCount">0</div>
+                <div class="stat-label">待查看通知</div>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <h2>违规记录详情</h2>
+            <div id="dataList" class="data-list">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+
+        <div class="pagination" id="pagination" style="display: none;">
+            <button id="prevBtn" class="pagination-btn">← 上一页</button>
+            <span id="pageInfo" class="page-info"></span>
+            <button id="nextBtn" class="pagination-btn">下一页 →</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2024 期货合规监测系统 | 数据来源：各大期货交易所官方网站 | 
+            <a href="https://github.com/zhenxinyi62-hue/futures-compliance-monitoring-system" target="_blank">GitHub</a>
+        </p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
