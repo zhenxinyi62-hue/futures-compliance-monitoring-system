@@ -21,31 +21,27 @@ HEADERS = {
 def extract_company(title):
 
     """
-    从标题中提取期货公司名称
-
-    示例：
-    关于对XX期货有限公司采取纪律处分的决定
-
-    返回：
-    XX期货有限公司
+    多规则识别期货公司名称
     """
-
 
     patterns = [
 
+        # 关于对XX期货有限公司采取...
+        r"关于对(.*?期货(?:有限公司|股份有限公司|公司)).*",
+
+        # 关于对XX采取...
         r"关于对(.*?)采取",
 
-        r"关于对(.*?)给予",
+        # XX期货有限公司关于...
+        r"^(.*?期货(?:有限公司|股份有限公司|公司))",
 
-        r"关于对(.*?)作出",
-
-        r"关于对(.*?)纪律处分"
+        # 对XX期货公司给予...
+        r"对(.*?期货(?:有限公司|股份有限公司|公司))"
 
     ]
 
 
     for pattern in patterns:
-
 
         result = re.search(
             pattern,
@@ -55,20 +51,46 @@ def extract_company(title):
 
         if result:
 
-
             company = result.group(1)
 
 
-            if "期货" in company:
+            company = company.strip()
 
 
-                return company
+            return company
 
 
-            else:
+
+    # 如果标题中直接包含期货关键词
+    if "期货有限公司" in title:
 
 
-                return company + "期货有限公司"
+        start = title.find("期货有限公司")
+
+
+        before = title[:start]
+
+
+        # 向前截取最近文字
+
+        for i in range(
+            len(before)-1,
+            -1,
+            -1
+        ):
+
+            if before[i] in "，。关于对":
+
+                before = before[i+1:]
+
+                break
+
+
+        return (
+            before
+            +
+            "期货有限公司"
+        )
 
 
 
