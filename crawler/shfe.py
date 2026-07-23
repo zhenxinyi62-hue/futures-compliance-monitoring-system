@@ -24,7 +24,8 @@ def crawl_shfe():
     response = requests.get(
         url,
         headers=headers,
-        timeout=20
+        timeout=20,
+        allow_redirects=True
     )
 
 
@@ -32,31 +33,71 @@ def crawl_shfe():
 
 
     print("====================")
-    print("状态码:", response.status_code)
-    print("网页长度:", len(response.text))
+    print("请求地址:")
+    print(url)
+
+    print("--------------------")
+
+    print("最终地址:")
+    print(response.url)
+
+    print("--------------------")
+
+    print("状态码:")
+    print(response.status_code)
+
+    print("--------------------")
+
+    print("网页长度:")
+    print(len(response.text))
+
     print("====================")
 
 
-    # 打印网页标题
-    soup = BeautifulSoup(
-        response.text,
-        "html.parser"
-    )
-
-
-    if soup.title:
-        print(
-            "网页标题:",
-            soup.title.text.strip()
-        )
+    print("网页内容前500字符:")
+    print(response.text[:500])
 
 
     print("====================")
-    print("查找可能的数据接口")
+
+
+    # 搜索可能接口
+
+    print("搜索接口关键词")
     print("====================")
 
 
-    # 查找网页中的URL
+    keywords = [
+        "api",
+        "json",
+        "ajax",
+        "notice",
+        "publicnotice",
+        "list",
+        "page",
+        "data"
+    ]
+
+
+    for key in keywords:
+
+        if key.lower() in response.text.lower():
+
+            print(
+                "发现:",
+                key
+            )
+
+
+    print("====================")
+
+
+    # 提取网页中的URL
+
+    print("发现URL:")
+    print("====================")
+
+
     urls = re.findall(
         r'https?://[^"\']+',
         response.text
@@ -66,34 +107,6 @@ def crawl_shfe():
     for u in urls:
 
         print(u)
-
-
-
-    print("====================")
-    print("查找api关键词")
-    print("====================")
-
-
-    # 查找可能的接口关键词
-    keywords = [
-        "api",
-        "json",
-        "ajax",
-        "notice",
-        "publicnotice",
-        "list",
-        "page"
-    ]
-
-
-    for key in keywords:
-
-        if key.lower() in response.text.lower():
-
-            print(
-                "发现关键词:",
-                key
-            )
 
 
     print("====================")
@@ -124,6 +137,4 @@ if __name__ == "__main__":
         )
 
 
-    print(
-        "SHFE更新完成"
-    )
+    print("SHFE更新完成")
