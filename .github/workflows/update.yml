@@ -14,5 +14,17 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Check Python
-        run: python --version
+      - name: Run Python
+        run: python crawler/update_all.py
+
+      - name: Commit JSON
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          git add data/announcements.json
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto update data"
+            git push
+          fi
