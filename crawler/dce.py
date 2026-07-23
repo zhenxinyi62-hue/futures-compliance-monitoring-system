@@ -9,24 +9,70 @@ def crawl_dce():
 
 
     headers = {
+
         "User-Agent":
-        "Mozilla/5.0"
+        (
+            "Mozilla/5.0 "
+            "(Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 "
+            "(KHTML, like Gecko) "
+            "Chrome/120.0 Safari/537.36"
+        ),
+
+        "Accept":
+        (
+            "text/html,"
+            "application/xhtml+xml,"
+            "application/xml;q=0.9,"
+            "*/*;q=0.8"
+        ),
+
+        "Accept-Language":
+        "zh-CN,zh;q=0.9",
+
+        "Referer":
+        "http://www.dce.com.cn/"
+
     }
 
 
     response = requests.get(
         url,
         headers=headers,
-        timeout=20
+        timeout=20,
+        allow_redirects=True
     )
 
 
     response.encoding = "utf-8"
 
 
-    print("DCE状态码:", response.status_code)
+    print("====================")
+    print("请求地址:")
+    print(url)
 
-    print("DCE网页长度:", len(response.text))
+    print("--------------------")
+
+    print("最终地址:")
+    print(response.url)
+
+    print("--------------------")
+
+    print("DCE状态码:")
+    print(response.status_code)
+
+    print("--------------------")
+
+    print("DCE网页长度:")
+    print(len(response.text))
+
+    print("====================")
+
+
+    print("网页前500字符:")
+    print(response.text[:500])
+
+    print("====================")
 
 
     soup = BeautifulSoup(
@@ -40,9 +86,11 @@ def crawl_dce():
 
     for a in soup.find_all("a"):
 
+
         title = a.get_text(
             strip=True
         )
+
 
         link = a.get(
             "href"
@@ -61,6 +109,7 @@ def crawl_dce():
 
 
             if link:
+
 
                 if link.startswith("/"):
 
@@ -111,4 +160,6 @@ if __name__ == "__main__":
         )
 
 
-    print("DCE更新完成")
+    print(
+        "DCE更新完成"
+    )
