@@ -8,8 +8,7 @@ def crawl_shfe():
     url = "https://www.shfe.cn/publicnotice/notice/"
 
     headers = {
-        "User-Agent": 
-        "Mozilla/5.0"
+        "User-Agent": "Mozilla/5.0"
     }
 
     response = requests.get(
@@ -18,44 +17,38 @@ def crawl_shfe():
     )
 
     response.encoding = "utf-8"
-    print("SHFE更新完成")
-    
+
+
     soup = BeautifulSoup(
         response.text,
         "html.parser"
     )
-    print(response.text[:500])
+
 
     announcements = []
 
 
-  # 查找公告列表
+    for item in soup.find_all("a"):
 
-for item in soup.find_all("a"):
+        title = item.get_text(strip=True)
 
-    title = item.get_text(strip=True)
-
-    link = item.get("href")
+        link = item.get("href")
 
 
-    if (
-        title
-        and len(title) > 5
-        and ("公告" in title or "通知" in title)
-    ):
+        if title and len(title) > 5:
 
-        if link and link.startswith("/"):
-            link = "https://www.shfe.com.cn" + link
+            if link and link.startswith("/"):
+                link = "https://www.shfe.cn" + link
 
 
-        announcements.append(
-            {
-                "exchange": "SHFE",
-                "title": title,
-                "type": "交易所公告",
-                "url": link
-            }
-        )
+            announcements.append(
+                {
+                    "exchange": "SHFE",
+                    "title": title,
+                    "type": "交易所公告",
+                    "url": link
+                }
+            )
 
 
     return announcements
